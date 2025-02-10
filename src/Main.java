@@ -20,5 +20,9 @@ public class Main {
         System.out.println("\n\n=== TEST BY DEPARTMENT ===\n");
         List<Seller> sellersByDepartment = sellerDao.findByDepartment(dep);
         sellersByDepartment.forEach(sel -> System.out.println(sel + "\n"));
-    }
+
+        System.out.println("\n\n=== FIND ALL ===");
+        List<Seller> allSellers = sellerDao.findAll();
+        allSellers.forEach(sel -> System.out.println(sel + "\n"));
+     }
 }
