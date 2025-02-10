@@ -19,9 +19,9 @@ public class appDepDao {
 
         DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
 
-//        System.out.println("=== TEST BY ID ===\n");
-//        Seller seller3 = sellerDao.findById(3);
-//        System.out.println(seller3);
+        System.out.println("=== TEST BY ID ===\n");
+        Department depById= departmentDao.findById(3);
+        System.out.println(depById);
 //
 //
 //        System.out.println("\n\n=== TEST BY DEPARTMENT ===\n");
@@ -33,15 +33,15 @@ public class appDepDao {
 //        allSellers.forEach(sel -> System.out.println(sel + "\n"));
 //
 //        System.out.println("=== ADD NEW DEPARTMENT ===");
-//        Department dep = new Department(2, "Electronics");
+        Department dep = new Department(5, "Electronics");
 //        departmentDao.insert(dep);
 //        System.out.println("Inserted! New seller ID: " + dep.getId());
 //
 //
-//        System.out.println("=== UPDATE SELLER ===");
-//        newSeller.setBaseSalary(1600.0);
-//        sellerDao.update(newSeller);
-//        System.out.println("Updated! New seller data: " + sellerDao.findById(newSeller.getId()));
+        System.out.println("=== UPDATE DEPARTMENT ===");
+        dep.setName("Music");
+        departmentDao.update(dep);
+        System.out.println("Updated! New department data: " + departmentDao.findById(dep.getId()));
 //
 //        System.out.println("\n=== SELLER DELETE =====");
 //        System.out.println("Enter id for delete test: ");
