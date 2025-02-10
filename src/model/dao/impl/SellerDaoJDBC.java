@@ -9,6 +9,7 @@ import model.entities.Seller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class SellerDaoJDBC implements SellerDao {
@@ -52,18 +53,12 @@ public class SellerDaoJDBC implements SellerDao {
             rs = st.executeQuery();
 
             if(rs.next()) {
-                Department dep = new Department();
 
-                dep.setId(rs.getInt("DepartmentId"));
-                dep.setName(rs.getString("DepName"));
+                Department dep = new Department();
+                instanciateDepartment(rs, dep);
 
                 Seller sl = new Seller();
-
-                sl.setName(rs.getString("Name"));
-                sl.setEmail(rs.getString("Email"));
-                sl.setBirthday(rs.getDate("BirthDate"));
-                sl.setBaseSalary(rs.getDouble("BaseSalary"));
-                sl.setDepartment(dep);
+                instanciateSeller(rs, dep, sl);
 
                 return sl;
             }
@@ -71,7 +66,7 @@ public class SellerDaoJDBC implements SellerDao {
             return null;
 
         }
-        catch (Exception e){
+        catch (SQLException e){
             throw new DbException(e.getMessage());
         }
         finally {
@@ -79,6 +74,25 @@ public class SellerDaoJDBC implements SellerDao {
             DB.closeResultSet(rs);
         }
 
+    }
+
+    private Department instanciateDepartment(ResultSet rs, Department dep) throws SQLException {
+
+        dep.setId(rs.getInt("DepartmentId"));
+        dep.setName(rs.getString("DepName"));
+
+        return dep;
+    }
+
+    private Seller instanciateSeller(ResultSet rs, Department dep, Seller sl) throws SQLException{
+
+        sl.setName(rs.getString("Name"));
+        sl.setEmail(rs.getString("Email"));
+        sl.setBirthday(rs.getDate("BirthDate"));
+        sl.setBaseSalary(rs.getDouble("BaseSalary"));
+        sl.setDepartment(dep);
+
+        return sl;
     }
 
     @Override
