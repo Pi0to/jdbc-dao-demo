@@ -5,10 +5,13 @@ import model.entities.Seller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
+        Scanner sc = new Scanner(System.in)
+;
 
         SellerDao sellerDao = DaoFactory.createSellerDao();
         Department dep = new Department(2, "Electronics");
@@ -27,7 +30,7 @@ public class Main {
         allSellers.forEach(sel -> System.out.println(sel + "\n"));
 
         System.out.println("=== ADD NEW SELLER ===");
-        Seller newSeller = new Seller(null, "Théo Pioto", "theopioto@gmail.com", new Date(), 1064.00, dep);
+        Seller newSeller = new Seller(null, "Asma Lenny", "asma@gmail.com", new Date(), 1599.90, dep);
         sellerDao.insert(newSeller);
         System.out.println("Inserted! New seller ID: " + newSeller.getId());
 
@@ -36,5 +39,13 @@ public class Main {
         newSeller.setBaseSalary(1600.0);
         sellerDao.update(newSeller);
         System.out.println("Updated! New seller data: " + sellerDao.findById(newSeller.getId()));
+
+        System.out.println("\n=== SELLER DELETE =====");
+        System.out.println("Enter id for delete test: ");
+        int id = sc.nextInt();
+        sellerDao.deleteById(id);
+        System.out.println("Delete completed");
+
+        sc.close();
      }
 }
